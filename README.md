@@ -19,8 +19,8 @@ Para explorar o sistema, por favor, utilize as seguintes credenciais de teste (e
 * **Login:** atendente
 * **Senha:** 12345
 
-**Login:** admin
-**Senha:** 12345
+* **Login:** admin
+* **Senha:** 12345
 
 
 ### ⚠️ Nota de Confidencialidade
