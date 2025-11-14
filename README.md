@@ -38,10 +38,13 @@ O EasyPlace é um sistema de gerenciamento de estoque e vendas com o objetivo de
 Atuei em todo o ciclo de vida do projeto como desenvolvedor fullstack, desde a concepção até a atual fase, focando em:
 
 * **Levantamento de Requisitos e Solução de Problemas:** Condução de reuniões (escuta ativa) com o cliente para entender as dores, definir o escopo e criar os diagramas de fluxo do sistema.
+* **Testes de API:** Utilização do *Postman* para testar e validar os endpoints da *API* (rotas GET/POST) e os payloads JSON.
 * **Implementação de Lógica e Regras de Negócio:** Aplicação de lógica de programação avançada para implementar as regras de negócio centrais do EasyPlace.
 * **Modelagem de Banco de Dados (SQL):** Desenho completo do banco de dados relacional (MySQL/SQLite), desde o diagrama entidade-relacionamento (DER) até a implementação do *schema* físico.
 * **Desenvolvimento de UI (Telas):** Criação das interfaces de usuário em React.
 * **Gestão de Versão e Deploy:** Gerenciamento do repositório no GitHub, incluindo práticas de *merge*, *branches* e *deploy*.
+
+
 
 ---
 
