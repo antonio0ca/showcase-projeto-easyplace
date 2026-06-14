@@ -36,13 +36,13 @@ O **Easy Place** é um sistema de gestão para pequenos comércios, criado para 
 ## Interface
 
 <p align="center">
-  <img src="docs/login.png" alt="Tela de login do Easy Place" width="700"/>
+  <img src="docs/dashboard.webp" alt="Dashboard do Easy Place" width="820"/>
 </p>
 
 |  |  |
 |:---:|:---:|
-| **Dashboard** | **Estatísticas** |
-| ![Dashboard](docs/dashboard.webp) | ![Estatísticas](docs/estatisticas.webp) |
+| **Login** | **Estatísticas** |
+| ![Login](docs/login.png) | ![Estatísticas](docs/estatisticas.webp) |
 | **Produtos** | **PDV — Ponto de Venda** |
 | ![Produtos](docs/produtos.webp) | ![PDV](docs/pdv-vendas.webp) |
 
