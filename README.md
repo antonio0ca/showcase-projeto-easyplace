@@ -13,14 +13,14 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB"/>
-  <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Prisma-2D3748?style=flat-square&logo=prisma&logoColor=white"/>
-  <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Laravel-FF2D20?style=flat-square&logo=laravel&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Tailwind-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white"/>
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"/>
+  <img src="https://img.shields.io/badge/Node.js-5FA04E?style=for-the-badge&logo=node.js&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"/>
+  <br/>
+  <img src="https://img.shields.io/badge/Neon-00E599?style=for-the-badge&logo=neon&logoColor=black"/>
+  <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white"/>
 </p>
 
 ---
@@ -71,7 +71,7 @@ O **Easy Place** é um sistema de gestão para pequenos comércios, criado para 
 
 ## Arquitetura
 
-O Easy Place é dividido em **três serviços independentes** que compartilham um banco PostgreSQL na nuvem:
+O Easy Place é dividido em **três serviços independentes** que compartilham um banco de dados Neon (PostgreSQL serverless) na nuvem:
 
 ```mermaid
 flowchart TB
@@ -82,11 +82,11 @@ flowchart TB
     end
 
     subgraph BE[Backend]
-        API["easy-place-api<br/>Node · Express · Prisma<br/>JWT · API Key · multi-tenant"]
+        API["easy-place-api<br/>Node · Express · Neon<br/>JWT · API Key · multi-tenant"]
         LOGS["easy-place-logs<br/>Laravel · Blade<br/>auditoria / export CSV"]
     end
 
-    DB[("PostgreSQL<br/>Neon")]
+    DB[("Neon<br/>PostgreSQL serverless")]
 
     U -->|HTTPS| WEB
     WEB -->|REST: /auth, /produtos, /vendas...| API
@@ -97,7 +97,7 @@ flowchart TB
 | Camada | Repositório | Stack |
 |---|---|---|
 | **Frontend** | `easy-place-web` | React 19, React Router v7, Vite, Axios, Recharts, TailwindCSS |
-| **Backend** | `easy-place-api` | Node.js, Express, Prisma, PostgreSQL (Neon), JWT, Zod, Helmet, rate-limit |
+| **Backend** | `easy-place-api` | Node.js, Express, Neon (PostgreSQL serverless), JWT, Zod, Helmet, rate-limit |
 | **Auditoria** | `easy-place-logs` | Laravel 13, PHP 8.3, Blade |
 
 ---
@@ -108,7 +108,7 @@ flowchart TB
 - **Autenticação flexível** — um mesmo middleware (`resolveAuth`) aceita **JWT** (usuários humanos) e **API Key** (integrações), resolvendo a empresa e o perfil em cada caso.
 - **Controle de acesso por perfil (RBAC)** — rotas e telas liberadas conforme o papel do usuário, com o PDV do atendente isolado em um layout próprio.
 - **Modelagem de domínio rica** — mais de 20 entidades (produtos, vendas, movimentações, boletos, perdas, cancelamentos) mantendo integridade referencial e histórico.
-- **Deploy serverless** — rodar Prisma na Vercel exigiu ajustar o build (`prisma generate`) e a conexão serverless com o Neon.
+- **Deploy serverless** — ajustar a conexão serverless com o Neon (driver WebSocket/pooler) para rodar na Vercel sem esgotar conexões.
 
 ---
 
@@ -117,7 +117,7 @@ flowchart TB
 Atuei como **desenvolvedor full stack** ao longo de todo o ciclo do projeto:
 
 - **Levantamento de requisitos** — reuniões com o cliente, definição de escopo e fluxos do sistema.
-- **Modelagem do banco (SQL)** — do DER ao schema físico em PostgreSQL/Prisma (20+ entidades).
+- **Modelagem do banco (SQL)** — do DER ao schema físico em PostgreSQL no Neon (20+ entidades).
 - **Backend** — regras de negócio, autenticação e multi-tenancy na API.
 - **Frontend** — desenvolvimento das telas em React.
 - **Testes de API** — validação de endpoints e payloads com Postman.
@@ -135,7 +135,7 @@ Atuei como **desenvolvedor full stack** ao longo de todo o ciclo do projeto:
 
 O Easy Place foi construído com um fluxo de **desenvolvimento full stack potencializado por IA**, usando ferramentas de IA agêntica como **Claude Code** (Anthropic) e **Google Antigravity** ao longo de todo o ciclo:
 
-- **Geração e refatoração de código** em frontend (React) e backend (Node/Prisma).
+- **Geração e refatoração de código** em frontend (React) e backend (Node + Neon).
 - **Depuração e análise** — investigação de bugs e do schema do banco direto pelos agentes.
 - **Documentação** — apoio na escrita de READMEs, comentários e diagramas.
 - **Automação** — otimização de imagens, scripts de inspeção e tarefas repetitivas.
