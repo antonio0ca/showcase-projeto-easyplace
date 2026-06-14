@@ -25,36 +25,37 @@
 
 ---
 
+## 🎯 Sobre o projeto
+
+O **Easy Place** é um sistema de gestão para pequenos comércios, criado para **otimizar o controle de estoque, registrar vendas e organizar as finanças** do cliente. Nasceu de reuniões de levantamento de requisitos com a Adega do Tom e evoluiu para uma plataforma **multi-tenant** — cada empresa cadastrada tem seus dados totalmente isolados.
+
+> Desenvolvido no curso de **Análise e Desenvolvimento de Sistemas da FATEC Guaratinguetá**, como projeto supervisionado para um cliente real.
+
+---
+
 ## 📸 Interface
 
 <p align="center">
   <img src="docs/login.png" alt="Tela de login do Easy Place" width="700"/>
 </p>
 
-<!-- Mais telas (Dashboard, PDV de Vendas, Produtos, Financeiro) serão adicionadas aqui. -->
-
----
-
-## 🎯 Sobre o projeto
-
-O **Easy Place** é um sistema de gestão para pequenos comércios, criado para **otimizar o controle de estoque, registrar vendas e organizar as finanças** do cliente. Foi concebido a partir de reuniões de levantamento de requisitos com a Adega do Tom e evoluiu para uma plataforma **multi-tenant** — cada empresa cadastrada tem seus dados totalmente isolados.
-
-> Desenvolvido no curso de **Análise e Desenvolvimento de Sistemas da FATEC Guaratinguetá**, como projeto supervisionado para um cliente real.
+<!-- Galeria (Dashboard, PDV, Produtos, Finanças, Estatísticas) será adicionada aqui. -->
 
 ---
 
 ## ✨ Funcionalidades
 
 - 🔐 **Multi-tenancy** — isolamento total de dados por empresa (`ID_EMPRESA`).
-- 👥 **3 perfis de acesso** com rotas protegidas por papel:
+- 👥 **Perfis de acesso** com rotas protegidas por papel (RBAC):
   - **Proprietário** — acesso completo
-  - **Gerente** — dashboard, produtos, estoque, finanças e estatísticas
+  - **Gerente** — produtos, estoque, vendas e relatórios
   - **Atendente** — PDV de vendas
-- 🛒 **PDV (Ponto de Venda)** dedicado para o atendente.
-- 📦 **Estoque** — produtos, categorias, fornecedores, movimentações, perdas.
-- 💰 **Financeiro** — vendas, formas de pagamento, boletos, cancelamentos.
+- 🛒 **PDV (Ponto de Venda)** dedicado, com layout próprio.
+- 📦 **Estoque** — produtos, categorias, fornecedores, entradas/saídas, movimentações e perdas.
+- 💰 **Financeiro** — vendas, formas de pagamento, boletos e solicitações de cancelamento.
 - 📊 **Dashboard e estatísticas** com gráficos (Recharts).
 - 🔑 **Autenticação dupla** — JWT (usuários) e API Key (integrações).
+- 🔄 **Sessão deslizante** — token renovado automaticamente via header de resposta.
 - ✉️ **Confirmação de e-mail** e recuperação de senha.
 - 📝 **Painel de auditoria** separado (logs do sistema, com exportação CSV).
 
@@ -62,19 +63,27 @@ O **Easy Place** é um sistema de gestão para pequenos comércios, criado para 
 
 ## 🏗️ Arquitetura
 
-O Easy Place é dividido em três serviços independentes:
+O Easy Place é dividido em **três serviços independentes** que compartilham um banco PostgreSQL na nuvem:
 
-```
-┌─────────────────┐      ┌──────────────────┐      ┌─────────────────┐
-│  easy-place-web │      │  easy-place-api  │      │ easy-place-logs │
-│  React + Vite   │─────▶│  Node + Express  │◀────▶│  Laravel (PHP)  │
-│  (Vercel)       │ HTTP │  Prisma          │      │  Painel de logs │
-└─────────────────┘      └────────┬─────────┘      └────────┬────────┘
-                                  │                          │
-                                  ▼                          │
-                         ┌──────────────────┐                │
-                         │  PostgreSQL Neon │◀───────────────┘
-                         └──────────────────┘
+```mermaid
+flowchart TB
+    U([👤 Usuário])
+
+    subgraph FE[Frontend]
+        WEB["easy-place-web<br/>React 19 · Vite · Tailwind<br/>(Vercel)"]
+    end
+
+    subgraph BE[Backend]
+        API["easy-place-api<br/>Node · Express · Prisma<br/>JWT · API Key · multi-tenant"]
+        LOGS["easy-place-logs<br/>Laravel · Blade<br/>auditoria / export CSV"]
+    end
+
+    DB[("PostgreSQL<br/>Neon")]
+
+    U -->|HTTPS| WEB
+    WEB -->|REST: /auth, /produtos, /vendas...| API
+    API --> DB
+    LOGS --> DB
 ```
 
 | Camada | Repositório | Stack |
@@ -85,18 +94,21 @@ O Easy Place é dividido em três serviços independentes:
 
 ---
 
+## 🧩 Desafios técnicos & lições aprendidas
+
+- **Multi-tenancy seguro** — garantir que *nenhuma* query vaze dados entre empresas. Resolvido isolando tudo por `ID_EMPRESA`, sempre derivado do token/API Key (nunca do corpo da requisição), reforçado no middleware.
+- **Autenticação flexível** — um mesmo middleware (`resolveAuth`) aceita **JWT** (usuários humanos) e **API Key** (integrações), resolvendo a empresa e o perfil em cada caso.
+- **Controle de acesso por perfil (RBAC)** — rotas e telas liberadas conforme o papel do usuário, com o PDV do atendente isolado em um layout próprio.
+- **Modelagem de domínio rica** — mais de 20 entidades (produtos, vendas, movimentações, boletos, perdas, cancelamentos) mantendo integridade referencial e histórico.
+- **Deploy serverless** — rodar Prisma na Vercel exigiu ajustar o build (`prisma generate`) e a conexão serverless com o Neon.
+
+---
+
 ## 🚀 Demo
 
 > **Link:** [easy-place-web.vercel.app](https://easy-place-web.vercel.app/#/login)
 
-**Credenciais de teste:**
-
-| Perfil | Login | Senha |
-|---|---|---|
-| Administrador | `admin` | `12345` |
-| Atendente | `atendente` | `12345` |
-
-> ⚠️ A demo depende de uma API e banco em nuvem (camada gratuita) que podem hibernar. Se o login retornar erro de conexão, a aplicação está "dormindo" — as imagens acima mostram a interface.
+> ⚠️ A demo depende de uma API e banco em nuvem (camada gratuita) que podem hibernar. Se o login retornar erro de conexão, a aplicação está "dormindo" — as imagens acima mostram a interface em funcionamento.
 
 ---
 
@@ -106,7 +118,7 @@ Atuei como **desenvolvedor full stack** ao longo de todo o ciclo do projeto:
 
 - **Levantamento de requisitos** — reuniões com o cliente, definição de escopo e fluxos do sistema.
 - **Modelagem do banco (SQL)** — do DER ao schema físico em PostgreSQL/Prisma (20+ entidades).
-- **Backend** — implementação de regras de negócio, autenticação e multi-tenancy na API.
+- **Backend** — regras de negócio, autenticação e multi-tenancy na API.
 - **Frontend** — desenvolvimento das telas em React.
 - **Testes de API** — validação de endpoints e payloads com Postman.
 - **Versionamento e deploy** — Git/GitHub (branches, merges) e publicação na Vercel.
