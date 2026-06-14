@@ -1,4 +1,4 @@
-<h1 align="center">🍷 Easy Place</h1>
+<h1 align="center">Easy Place</h1>
 
 <p align="center">
   <b>Sistema multi-tenant de gestão de estoque, vendas (PDV) e finanças para o varejo.</b>
@@ -25,7 +25,7 @@
 
 ---
 
-## 🎯 Sobre o projeto
+## Sobre o projeto
 
 O **Easy Place** é um sistema de gestão para pequenos comércios, criado para **otimizar o controle de estoque, registrar vendas e organizar as finanças** do cliente. Nasceu de reuniões de levantamento de requisitos com a Adega do Tom e evoluiu para uma plataforma **multi-tenant** — cada empresa cadastrada tem seus dados totalmente isolados.
 
@@ -33,7 +33,7 @@ O **Easy Place** é um sistema de gestão para pequenos comércios, criado para 
 
 ---
 
-## 📸 Interface
+## Interface
 
 <p align="center">
   <img src="docs/login.png" alt="Tela de login do Easy Place" width="700"/>
@@ -50,31 +50,31 @@ O **Easy Place** é um sistema de gestão para pequenos comércios, criado para 
 
 ---
 
-## ✨ Funcionalidades
+## Funcionalidades
 
-- 🔐 **Multi-tenancy** — isolamento total de dados por empresa (`ID_EMPRESA`).
-- 👥 **Perfis de acesso** com rotas protegidas por papel (RBAC):
+- **Multi-tenancy** — isolamento total de dados por empresa (`ID_EMPRESA`).
+- **Perfis de acesso** com rotas protegidas por papel (RBAC):
   - **Proprietário** — acesso completo
   - **Gerente** — produtos, estoque, vendas e relatórios
   - **Atendente** — PDV de vendas
-- 🛒 **PDV (Ponto de Venda)** dedicado, com layout próprio.
-- 📦 **Estoque** — produtos, categorias, fornecedores, entradas/saídas, movimentações e perdas.
-- 💰 **Financeiro** — vendas, formas de pagamento, boletos e solicitações de cancelamento.
-- 📊 **Dashboard e estatísticas** com gráficos (Recharts).
-- 🔑 **Autenticação dupla** — JWT (usuários) e API Key (integrações).
-- 🔄 **Sessão deslizante** — token renovado automaticamente via header de resposta.
-- ✉️ **Confirmação de e-mail** e recuperação de senha.
-- 📝 **Painel de auditoria** separado (logs do sistema, com exportação CSV).
+- **PDV (Ponto de Venda)** dedicado, com layout próprio.
+- **Estoque** — produtos, categorias, fornecedores, entradas/saídas, movimentações e perdas.
+- **Financeiro** — vendas, formas de pagamento, boletos e solicitações de cancelamento.
+- **Dashboard e estatísticas** com gráficos (Recharts).
+- **Autenticação dupla** — JWT (usuários) e API Key (integrações).
+- **Sessão deslizante** — token renovado automaticamente via header de resposta.
+- **Confirmação de e-mail** e recuperação de senha.
+- **Painel de auditoria** separado (logs do sistema, com exportação CSV).
 
 ---
 
-## 🏗️ Arquitetura
+## Arquitetura
 
 O Easy Place é dividido em **três serviços independentes** que compartilham um banco PostgreSQL na nuvem:
 
 ```mermaid
 flowchart TB
-    U([👤 Usuário])
+    U([Usuário])
 
     subgraph FE[Frontend]
         WEB["easy-place-web<br/>React 19 · Vite · Tailwind<br/>(Vercel)"]
@@ -101,7 +101,7 @@ flowchart TB
 
 ---
 
-## 🧩 Desafios técnicos & lições aprendidas
+## Desafios técnicos e lições aprendidas
 
 - **Multi-tenancy seguro** — garantir que *nenhuma* query vaze dados entre empresas. Resolvido isolando tudo por `ID_EMPRESA`, sempre derivado do token/API Key (nunca do corpo da requisição), reforçado no middleware.
 - **Autenticação flexível** — um mesmo middleware (`resolveAuth`) aceita **JWT** (usuários humanos) e **API Key** (integrações), resolvendo a empresa e o perfil em cada caso.
@@ -111,15 +111,15 @@ flowchart TB
 
 ---
 
-## 🚀 Demo
+## Demo
 
 > **Link:** [easy-place-web.vercel.app](https://easy-place-web.vercel.app/#/login)
 
-> ⚠️ A demo depende de uma API e banco em nuvem (camada gratuita) que podem hibernar. Se o login retornar erro de conexão, a aplicação está "dormindo" — as imagens acima mostram a interface em funcionamento.
+> A demo depende de uma API e banco em nuvem (camada gratuita) que podem hibernar. Se o login retornar erro de conexão, a aplicação está "dormindo" — as imagens acima mostram a interface em funcionamento.
 
 ---
 
-## 💻 Minhas responsabilidades
+## Minhas responsabilidades
 
 Atuei como **desenvolvedor full stack** ao longo de todo o ciclo do projeto:
 
@@ -132,7 +132,7 @@ Atuei como **desenvolvedor full stack** ao longo de todo o ciclo do projeto:
 
 ---
 
-## 🔒 Confidencialidade
+## Confidencialidade
 
 Por se tratar de um projeto para um **cliente real**, o código-fonte é **privado**. Este repositório é uma **vitrine** que documenta a arquitetura, as decisões técnicas e minhas responsabilidades no projeto.
 
