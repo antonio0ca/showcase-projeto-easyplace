@@ -122,6 +122,25 @@ Atuei como **desenvolvedor full stack** ao longo de todo o ciclo do projeto:
 - **Frontend** — desenvolvimento das telas em React.
 - **Testes de API** — validação de endpoints e payloads com Postman.
 - **Versionamento e deploy** — Git/GitHub (branches, merges) e publicação na Vercel.
+- **Desenvolvimento assistido por IA** — condução do projeto com ferramentas de IA agêntica, mantendo a revisão humana das decisões de arquitetura e regras de negócio.
+
+---
+
+## Desenvolvimento assistido por IA
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Claude%20Code-Anthropic-D97757?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Antigravity-Google-4285F4?style=flat-square"/>
+</p>
+
+O Easy Place foi construído com um fluxo de **desenvolvimento full stack potencializado por IA**, usando ferramentas de IA agêntica como **Claude Code** (Anthropic) e **Google Antigravity** ao longo de todo o ciclo:
+
+- **Geração e refatoração de código** em frontend (React) e backend (Node/Prisma).
+- **Depuração e análise** — investigação de bugs e do schema do banco direto pelos agentes.
+- **Documentação** — apoio na escrita de READMEs, comentários e diagramas.
+- **Automação** — otimização de imagens, scripts de inspeção e tarefas repetitivas.
+
+A IA acelerou a entrega, mas as **decisões de arquitetura, modelagem e regras de negócio permaneceram sob revisão humana** — o papel do desenvolvedor passou a ser orquestrar, revisar e validar o que os agentes produzem.
 
 ---
 
