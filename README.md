@@ -55,6 +55,7 @@ O **Easy Place** é um sistema de gestão para pequenos comércios, criado para 
 - **Multi-tenancy** — isolamento total de dados por empresa (`ID_EMPRESA`).
 - **Perfis de acesso** com rotas protegidas por papel (RBAC):
   - **Proprietário** — acesso completo
+  - **Subproprietário** — acesso completo, como o proprietário (sócio/gestor delegado)
   - **Gerente** — produtos, estoque, vendas e relatórios
   - **Atendente** — PDV de vendas
 - **PDV (Ponto de Venda)** dedicado, com layout próprio.
@@ -108,14 +109,6 @@ flowchart TB
 - **Controle de acesso por perfil (RBAC)** — rotas e telas liberadas conforme o papel do usuário, com o PDV do atendente isolado em um layout próprio.
 - **Modelagem de domínio rica** — mais de 20 entidades (produtos, vendas, movimentações, boletos, perdas, cancelamentos) mantendo integridade referencial e histórico.
 - **Deploy serverless** — rodar Prisma na Vercel exigiu ajustar o build (`prisma generate`) e a conexão serverless com o Neon.
-
----
-
-## Demo
-
-> **Link:** [easy-place-web.vercel.app](https://easy-place-web.vercel.app/#/login)
-
-> A demo depende de uma API e banco em nuvem (camada gratuita) que podem hibernar. Se o login retornar erro de conexão, a aplicação está "dormindo" — as imagens acima mostram a interface em funcionamento.
 
 ---
 
